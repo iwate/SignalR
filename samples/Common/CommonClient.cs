@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client.Hubs;
+using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace Microsoft.AspNet.SignalR.Client.Samples
 {
@@ -44,19 +45,27 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
             await hubConnection.Start();
             hubConnection.TraceWriter.WriteLine("transport.Name={0}", hubConnection.Transport.Name);
 
-            await hubProxy.Invoke("DisplayMessageCaller", "Hello Caller!");
-
-            string joinGroupResponse = await hubProxy.Invoke<string>("JoinGroup", hubConnection.ConnectionId, "CommonClientGroup");
-            hubConnection.TraceWriter.WriteLine("joinGroupResponse={0}", joinGroupResponse);
-            
-            await hubProxy.Invoke("DisplayMessageGroup", "CommonClientGroup", "Hello Group Members!");
-
-            string leaveGroupResponse = await hubProxy.Invoke<string>("LeaveGroup", hubConnection.ConnectionId, "CommonClientGroup");
-            hubConnection.TraceWriter.WriteLine("leaveGroupResponse={0}", leaveGroupResponse);
-
-            await hubProxy.Invoke("DisplayMessageGroup", "CommonClientGroup", "Hello Group Members! (caller should not see this message)");
-
-            await hubProxy.Invoke("DisplayMessageCaller", "Hello Caller again!");
+            await hubProxy.Invoke("Reset");
+            Action action = () =>
+            {
+                try
+                {
+                    string result = hubProxy.Invoke<string>("DisplayMessageCaller", "Hello Caller!").Result;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            };
+            for (int i = 0; i < 100; i++)
+            {
+                Console.WriteLine("sending" + i);
+                //System.Threading.Thread.Sleep(100);                
+                action.BeginInvoke(null, null);
+            }
+            System.Threading.Thread.Sleep(1000);
+            await hubProxy.Invoke("Set");
+            Console.WriteLine("SET");
         }
 
         private async Task RunDemo(string url)

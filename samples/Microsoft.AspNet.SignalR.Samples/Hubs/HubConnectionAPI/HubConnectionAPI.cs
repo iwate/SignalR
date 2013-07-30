@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Microsoft.AspNet.SignalR.Hosting.AspNet.Samples.Hubs.HubConnectionAPI
 {
@@ -31,9 +32,25 @@ namespace Microsoft.AspNet.SignalR.Hosting.AspNet.Samples.Hubs.HubConnectionAPI
             Clients.Others.displayMessage("Clients.Others: " + message + " from " + Context.ConnectionId);
         }
 
-        public void DisplayMessageCaller(string message)
+        static ManualResetEvent myEvent = new ManualResetEvent(false);
+
+        public void Reset()
         {
-            Clients.Caller.displayMessage("Clients.Caller: " + message + " from " + Context.ConnectionId);
+            myEvent.Reset();
+        }
+
+        public void Set()
+        {
+            myEvent.Set();
+        }
+
+        public Task<string> DisplayMessageCaller(string message)
+        {
+            return Task.Run<string>(() =>
+            {
+                myEvent.WaitOne();
+                return message;
+            });
         }
 
         public void DisplayMessageSpecified(string targetConnectionId, string message)
