@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client.Hubs;
+using Microsoft.AspNet.SignalR.Client.Transports;
 
 namespace Microsoft.AspNet.SignalR.Client.Samples
 {
@@ -21,11 +22,6 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
             {
                 await RunHubConnectionAPI(url);
             }
-            catch (HttpClientException httpClientException)
-            {
-                _traceWriter.WriteLine("HttpClientException: {0}", httpClientException.Response);
-                throw;
-            }
             catch (Exception exception)
             {
                 _traceWriter.WriteLine("Exception: {0}", exception);
@@ -41,7 +37,11 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
             var hubProxy = hubConnection.CreateHubProxy("HubConnectionAPI");
             hubProxy.On<string>("displayMessage", (data) => hubConnection.TraceWriter.WriteLine(data));
             
-            await hubConnection.Start();
+			await hubConnection.Start().ContinueWith(task => 
+			{
+				Console.WriteLine("OK!"+ hubConnection.ConnectionId);
+			}
+			);
             hubConnection.TraceWriter.WriteLine("transport.Name={0}", hubConnection.Transport.Name);
 
             await hubProxy.Invoke("DisplayMessageCaller", "Hello Caller!");
@@ -110,13 +110,13 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
             var connection = new Connection(url + "/echo");
             connection.TraceWriter = _traceWriter;
             connection.Received += (data) => connection.TraceWriter.WriteLine(data);
-            connection.Credentials = new NetworkCredential("user", "password");
+            //connection.Credentials = new NetworkCredential("user", "password");
             await connection.Start();
             await connection.Send("sending to AuthenticatedEchoConnection");
 
             var hubConnection = new HubConnection(url);
             hubConnection.TraceWriter = _traceWriter;
-            hubConnection.Credentials = new NetworkCredential("user", "password");
+            //hubConnection.Credentials = new NetworkCredential("user", "password");
 
             var hubProxy = hubConnection.CreateHubProxy("AuthHub");
             hubProxy.On<string, string>("invoked", (connectionId, date) => hubConnection.TraceWriter.WriteLine("connectionId={0}, date={1}", connectionId, date));
@@ -134,7 +134,7 @@ namespace Microsoft.AspNet.SignalR.Client.Samples
 
             // Windows Auth is not supported on SL and WindowsStore apps
 #if !SILVERLIGHT && !NETFX_CORE
-            hubConnection.Credentials = CredentialCache.DefaultCredentials;
+            //hubConnection.Credentials = CredentialCache.DefaultCredentials;
 #endif
             var hubProxy = hubConnection.CreateHubProxy("AuthHub");
             hubProxy.On<string, string>("invoked", (connectionId, date) => hubConnection.TraceWriter.WriteLine("connectionId={0}, date={1}", connectionId, date));

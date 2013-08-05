@@ -1,8 +1,8 @@
 using System;
 using System.Drawing;
 using System.Threading;
-using Microsoft.AspNet.SignalR.Client.Samples;
 using MonoTouch.Foundation;
+using Microsoft.AspNet.SignalR.Client.Samples;
 using MonoTouch.UIKit;
 
 namespace Microsoft.AspNet.SignalR.Client.iOS.Samples

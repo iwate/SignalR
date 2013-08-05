@@ -5,72 +5,75 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DBFB861C-DF65-4784-B2B7-85DBFF01E787}</ProjectGuid>
+    <ProjectGuid>{90653A09-119E-4B11-AE19-5E91CCDF1833}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Microsoft.AspNet.SignalR.Client.iOS.Samples</RootNamespace>
+    <RootNamespace>iPhoneTestProject</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>MicrosoftAspNetSignalRClientiOSSamples</AssemblyName>
+    <AssemblyName>iPhoneTestProject</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchDebug>true</MtouchDebug>
     <MtouchLink>None</MtouchLink>
     <ConsolePause>false</ConsolePause>
-    <MtouchI18n />
-    <MtouchArch>ARMv6</MtouchArch>
+    <MtouchDebug>true</MtouchDebug>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\iPhone\Debug</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <ConsolePause>false</ConsolePause>
-    <IpaPackageName />
+    <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <BuildIpa>true</BuildIpa>
+    <ConsolePause>false</ConsolePause>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhone\AppStore</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <ConsolePause>false</ConsolePause>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -78,10 +81,10 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\Desktop\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\Downloads\Json50r6\Bin\Portable40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client">
-      <HintPath>..\..\..\Desktop\SkyDrive\Nuget-SignalR\lib\portable-net45+sl5+netcore45+wp8\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+      <HintPath>..\..\Desktop\SkyDrive\Nuget-SignalR\lib\portable-net45+sl5+netcore45+wp8\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -89,20 +92,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <None Include="Scripts\jquery-1.6.4.js" />
-    <None Include="Scripts\jquery-1.6.4.min.js" />
-    <None Include="packages.config" />
-    <None Include="Scripts\jquery.signalR-2.0.0-beta2.js" />
-    <None Include="Scripts\jquery.signalR-2.0.0-beta2.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="TextViewWriter.cs" />
-    <Compile Include="..\Common\CommonClient.cs">
-      <Link>CommonClient.cs</Link>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
