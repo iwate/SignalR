@@ -73,10 +73,13 @@
     <Compile Include="ConnectionConfiguration.cs" />
     <Compile Include="Hosting\INameValueCollection.cs" />
     <Compile Include="Hosting\IResponse.cs" />
+    <Compile Include="Hub%28T%29.cs" />
     <Compile Include="HubConfiguration.cs" />
     <Compile Include="HubException.cs" />
     <Compile Include="Hubs\ConnectionIdProxy.cs" />
+    <Compile Include="Hubs\HubBase.cs" />
     <Compile Include="Hubs\HubConnectionContextBase.cs" />
+    <Compile Include="Hubs\IHubConnectionContext%28T%29.cs" />
     <Compile Include="Hubs\MultipleSignalProxy.cs" />
     <Compile Include="Hubs\DynamicDictionary.cs" />
     <Compile Include="Hubs\EmptyJavaScriptProxyGenerator.cs" />
@@ -88,6 +91,8 @@
     <Compile Include="Hubs\Pipeline\ExceptionContext.cs" />
     <Compile Include="Hubs\Pipeline\HubOutgoingInvokerContextExtensions.cs" />
     <Compile Include="Hubs\UserProxy.cs" />
+    <Compile Include="Hubs\IHubCallerConnectionContext%28T%29.cs" />
+    <Compile Include="Hubs\TypedHubConnectionContext.cs" />
     <Compile Include="Infrastructure\AckHandler.cs" />
     <Compile Include="Configuration\DefaultConfigurationManager.cs" />
     <Compile Include="Infrastructure\ArraySegmentTextReader.cs" />
@@ -292,6 +297,7 @@
     <Compile Include="Transports\TransportManager.cs" />
     <Compile Include="Infrastructure\ExceptionsExtensions.cs" />
     <Compile Include="Transports\WebSocketTransport.cs" />
+    <Compile Include="Hubs\TypedClientBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
