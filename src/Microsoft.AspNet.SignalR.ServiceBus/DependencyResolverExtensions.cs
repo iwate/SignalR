@@ -35,15 +35,19 @@ namespace Microsoft.AspNet.SignalR
         public static IDependencyResolver UseServiceBus(this IDependencyResolver resolver, ServiceBusScaleoutConfiguration configuration)
         {
             var bus = new Lazy<ServiceBusMessageBus>(() => new ServiceBusMessageBus(resolver, configuration));
-            try
+
+            resolver.Register(typeof(IMessageBus), () =>
             {
-                resolver.Register(typeof(IMessageBus), () => bus.Value);
-            }
-            catch(ConfigurationErrorsException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                throw ex;
-            }
+                try
+                {
+                    return bus.Value;
+                }
+                catch (ConfigurationErrorsException ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    throw ex;
+                }
+            });
 
             return resolver;
         }
