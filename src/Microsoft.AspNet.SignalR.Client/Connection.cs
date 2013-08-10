@@ -164,6 +164,8 @@ namespace Microsoft.AspNet.SignalR.Client
             Headers = new HeaderDictionary(this);
             TransportConnectTimeout = TimeSpan.Zero;
 
+            //Debug.Listeners.Add(new DefaultTraceListener());
+
             // Current client protocol
             Protocol = new Version(1, 3);
         }
