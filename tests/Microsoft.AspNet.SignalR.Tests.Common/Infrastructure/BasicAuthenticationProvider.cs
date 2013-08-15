@@ -10,7 +10,7 @@ namespace Microsoft.AspNet.SignalR.Tests.Common
     {
         public Task<IPrincipal> AuthenticateAsync(string userName, string password, CancellationToken cancellationToken)
         {
-            if (userName == "user" && password == "password")
+            if (!string.IsNullOrEmpty(userName) && password == "password")
             {
                 var identity = new ClaimsIdentity("Basic");
                 identity.AddClaim(new Claim(ClaimTypes.Name, userName));
